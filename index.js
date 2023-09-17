@@ -14,6 +14,9 @@ const authRouter = require('./routes/auth')
 //orderRouter
 const orderRouter = require('./routes/order')
 
+//orderStatusRouter
+const orderStatusRouter = require('./routes/orderStatus')
+
 //jwt
 const jwt = require('jsonwebtoken');
 
@@ -58,10 +61,10 @@ server.use(express.json());
 // server.use(express.urlencoded());
 server.use(morgan('default'));
 server.use(orderRouter.router);
-
 server.use('/',authRouter.router);
 
 
+server.use('/order-status',orderStatusRouter.router);
 
 server.listen(8080);
 console.log(('server started'))
