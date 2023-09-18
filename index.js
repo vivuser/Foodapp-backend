@@ -64,7 +64,7 @@ server.use(orderRouter.router);
 server.use('/',authRouter.router);
 
 
-server.use('/order-status',orderStatusRouter.router);
+server.use('/order-status',orderStatusRouter);
 
 server.listen(8080);
 console.log(('server started'))
