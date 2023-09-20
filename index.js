@@ -20,6 +20,9 @@ const orderStatusRouter = require('./routes/orderStatus')
 //userRouter
 const userRouter = require('./routes/user')
 
+//authonCo
+const authOnCoRouter = require('./routes/authonCo')
+
 //jwt
 const jwt = require('jsonwebtoken');
 
@@ -68,6 +71,8 @@ server.use('/',authRouter.router);
 server.use('/send-otp',userRouter);
 server.use('/verify-otp', userRouter);
 server.use('/order-status',orderStatusRouter);
+server.use('/signUpOnCheckout', authOnCoRouter);
+server.use('./loginOnCheckOut', authOnCoRouter)
 
 server.listen(8080);
 console.log(('server started'))

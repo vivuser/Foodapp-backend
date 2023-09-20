@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userOnCOSchema = new Schema({
-    firstName: { type: String, required: true },
-    lastName: String,
+    name: { type: String, required: true },
     email: {
         type: String,
         unique: true,
@@ -15,8 +14,7 @@ const userOnCOSchema = new Schema({
         },
         required:true,
     },
-    password: { type: String, minLength: 6, required: true },
-    token: String,
+    phone: { type: String, minLength: 6, required: true },
 });
 
 exports.UserOnCO = mongoose.model('UserOnCO', userOnCOSchema);

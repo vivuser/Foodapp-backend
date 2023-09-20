@@ -1,5 +1,6 @@
 const UserOnCOModel = require('../model/userOnCheckoutPage'); // Change the variable name
 const sendEmail = require('../Config/emailService');
+const { info } = require('sass');
 
 function generateRandomOTP(length) {
    const characters = '0123456789'; // The set of characters to use for the OTP
@@ -17,22 +18,36 @@ function generateRandomOTP(length) {
  const otp = generateRandomOTP(6);
  console.log(otp);
 
-exports.sendOTP = async (req, res) => {
+exports.sendOTP = async (email) => {
      try {
-        const { email } = req.body;
         const otp = generateRandomOTP();
         const expirationTime = new Date();
         expirationTime.setMinutes(expirationTime.getMinutes() + 5);
 
         await UserOnCOModel.updateOne({ email }, { otp, otpExpiration: expirationTime });
 
-        await sendEmail(email, 'Your OTP', `Your OTP is ${otp}`);
+      const transporter = require('./nodemailer.js');
 
-        res.status(200).json({ success: true })
-     } catch (error) {
-      console.log(error);
-      res.status(500).json({ success: false, message: 'Failed to send OTP' });
-     }
+      const mailOptions = {
+         from : 'test@test.com',
+         to: email,
+         subject: 'OTP for login',
+         text: `Your OTP for login is ${otp}`
+      }
+
+      transporter.sendMail(mailOptions, (error, info) => {
+         if (error) {
+            console.error('Error sending email', error);
+         } else {
+            console.log('Email sent', info.response);
+         }
+      });
+
+      return true; 
+   } catch (error) {
+      console.error(error);
+      return false;
+   }
 };
 
 exports.verifyOTP = async (req, res) => {
