@@ -17,6 +17,9 @@ const orderRouter = require('./routes/order')
 //orderStatusRouter
 const orderStatusRouter = require('./routes/orderStatus')
 
+//userRouter
+const userRouter = require('./routes/user')
+
 //jwt
 const jwt = require('jsonwebtoken');
 
@@ -62,8 +65,8 @@ server.use(express.json());
 server.use(morgan('default'));
 server.use(orderRouter.router);
 server.use('/',authRouter.router);
-
-
+server.use('/send-otp',userRouter);
+server.use('/verify-otp', userRouter);
 server.use('/order-status',orderStatusRouter);
 
 server.listen(8080);

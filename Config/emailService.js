@@ -3,8 +3,8 @@ const transporter = require('./nodemailer.js');
 const mailOptions = {
     from: 'testmail@test.com',
     to: 'vivekchamyal41@gmail.com',
-    subject: 'rtest',
-    text: 'testttt'
+    subject: 'OTP for login',
+    text: 'Your OTP for login is ${}'
 };
 
 transporter.sendMail(mailOptions, (error, info) => {
