@@ -17,4 +17,6 @@ const userOnCOSchema = new Schema({
     phone: { type: String, minLength: 6, required: true },
 });
 
-exports.UserOnCO = mongoose.model('UserOnCO', userOnCOSchema);
+const UserOnCOMOdel = mongoose.model('UserOnCO', userOnCOSchema);
+
+module.exports = UserOnCOMOdel;

@@ -11,7 +11,11 @@ router.post('/signUpOnCheckout', async (req, res) => {
 
         await newUser.save();
 
-        await userController.sendOTP(email);
+        generatedOTP = await userController.sendOTP(email);
+
+        newUser.otp = generatedOTP;
+
+        await newUser.save();
 
         res.status(201).json({ success: true, message: 'User registered, and OTP sent' })
     } catch (error) {
@@ -24,14 +28,19 @@ router.post('/loginOnCheckout', async(req, res) => {
     try{
         const { email } = req.body;
 
-        await userController.sendOTP(email);
+        const otpSent = await userController.sendOTP(email);
 
-        res.status(200).json({ success: true, message: 'OTP sent for login' });
-    } catch (error) {
+       if (otpSent) {
+        res.status(200).json({ success: true, message:'OTP sent for login'});
+       } else {
+        res.status(500).json({ success: false, message:'Failed to send OTP for login'});
+       }
+    } catch(error) {
         console.error(error);
         res.status(500).json({ success: false, message: 'Failed to send OTP for login.'})
     }
 });
 
-module.exports = router;
+
+exports.router = router;
 

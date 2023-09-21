@@ -1,6 +1,4 @@
 const UserOnCOModel = require('../model/userOnCheckoutPage'); // Change the variable name
-const sendEmail = require('../Config/emailService');
-const { info } = require('sass');
 
 function generateRandomOTP(length) {
    const characters = '0123456789'; // The set of characters to use for the OTP
@@ -20,13 +18,13 @@ function generateRandomOTP(length) {
 
 exports.sendOTP = async (email) => {
      try {
-        const otp = generateRandomOTP();
+        const otp = generateRandomOTP(6);
         const expirationTime = new Date();
         expirationTime.setMinutes(expirationTime.getMinutes() + 5);
 
         await UserOnCOModel.updateOne({ email }, { otp, otpExpiration: expirationTime });
 
-      const transporter = require('./nodemailer.js');
+      const transporter = require('../Config/nodemailer.js');
 
       const mailOptions = {
          from : 'test@test.com',
@@ -39,7 +37,7 @@ exports.sendOTP = async (email) => {
          if (error) {
             console.error('Error sending email', error);
          } else {
-            console.log('Email sent', info.response);
+            console.log('Email sent', otp,  info.response);
          }
       });
 
