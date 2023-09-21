@@ -16,6 +16,7 @@ router.post('/signUpOnCheckout', async (req, res) => {
         newUser.otp = generatedOTP;
 
         await newUser.save();
+        console.log(newUser)
 
         res.status(201).json({ success: true, message: 'User registered, and OTP sent' })
     } catch (error) {

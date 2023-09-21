@@ -15,6 +15,11 @@ const userOnCOSchema = new Schema({
         required:true,
     },
     phone: { type: String, minLength: 6, required: true },
+    otp: { type: String },
+    verified: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 const UserOnCOMOdel = mongoose.model('UserOnCO', userOnCOSchema);

@@ -20,9 +20,9 @@ exports.sendOTP = async (email) => {
      try {
         const otp = generateRandomOTP(6);
         const expirationTime = new Date();
-        expirationTime.setMinutes(expirationTime.getMinutes() + 5);
+        expirationTime.setMinutes(expirationTime.getMinutes() + 5000);
 
-        await UserOnCOModel.updateOne({ email }, { otp, otpExpiration: expirationTime });
+        await UserOnCOModel.updateOne({ email }, { otp:otp , otpExpiration: expirationTime });
 
       const transporter = require('../Config/nodemailer.js');
 
@@ -41,7 +41,7 @@ exports.sendOTP = async (email) => {
          }
       });
 
-      return true; 
+      return otp; 
    } catch (error) {
       console.error(error);
       return false;

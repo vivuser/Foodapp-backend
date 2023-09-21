@@ -12,6 +12,8 @@ router.post('/verifyOTP', async(req, res) => {
             const currentTime = new Date();
             if (user.otpExpiration && currentTime() <= user.otpExpiration) {
 
+
+                console.log("checking if otp exists and matches")
                 await UserOnCOModel.updateOne({ email }, { verified: true});
 
                 res.status(200).json({ success: true, message: 'OTP verified successfully' });
