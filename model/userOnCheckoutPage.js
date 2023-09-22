@@ -19,7 +19,10 @@ const userOnCOSchema = new Schema({
     verified: {
         type: Boolean,
         default: false,
-    }
+    },
+    otpExpiration: {
+        type: Date,
+    },
 });
 
 const UserOnCOMOdel = mongoose.model('UserOnCO', userOnCOSchema);

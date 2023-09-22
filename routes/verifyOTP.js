@@ -7,10 +7,11 @@ router.post('/verifyOTP', async(req, res) => {
     try{
         const { email, otp } = req.body;
         const user = await UserOnCOModel.findOne({ email });
+        console.log(user, '=user')
 
         if (user && user.otp === otp) {
             const currentTime = new Date();
-            if (user.otpExpiration && currentTime() <= user.otpExpiration) {
+            if (user.otpExpiration && currentTime <= user.otpExpiration) {
 
 
                 console.log("checking if otp exists and matches")
@@ -18,6 +19,7 @@ router.post('/verifyOTP', async(req, res) => {
 
                 res.status(200).json({ success: true, message: 'OTP verified successfully' });
             } else{
+                console.log(user.otpExpiration , currentTime)
                 res.status(400).json({ success: false, message: 'OTP has expired'})
             }
             }else {
