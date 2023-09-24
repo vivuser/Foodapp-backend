@@ -23,6 +23,12 @@ const authOnCoRouter = require('./routes/authonCo')
 //verifyOTP
 const verifyOTPRouter = require('./routes/verifyOTP')
 
+//forgotPassword
+const passwordRouter = require('./routes/password')
+
+//passwordReset
+const passResetRouter = require('./routes/passwordReset')
+
 //jwt
 const jwt = require('jsonwebtoken');
 
@@ -71,6 +77,8 @@ server.use('/',authRouter.router);
 server.use('/order-status',orderStatusRouter);
 server.use('/', authOnCoRouter.router);
 server.use('/', verifyOTPRouter.router)
+server.use('/', passwordRouter)
+server.use('/', passResetRouter)
 
 server.listen(8080);
 console.log(('server started'))
