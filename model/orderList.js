@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 const orderListSchema = new mongoose.Schema({
-    orderListData: Array
+    orderListData: {type:Array}
 })
 
 module.exports = mongoose.model('OrderList', orderListSchema)

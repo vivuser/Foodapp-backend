@@ -6,9 +6,18 @@ const path = require('path');
 const bcrypt = require('bcrypt')
 const privateKey = fs.readFileSync(path.resolve(__dirname,'../private.key'), 'utf-8')
 
+function createUserId() {
+    const dataUser = Date.now()
+    const useId = Math.floor(Math.random() * 1000)
+    return dataUser + useId
+}
+
 exports.createUser = (req, res) => {
     console.log('Request Body:', req.body);
-    const user = new User(req.body);
+    const userId = createUserId();
+    console.log('dynamicUserId', userId)
+    const user = new User({...req.body, userId});
+    console.log('createdUser', user)
     var token = jwt.sign({ email: req.body.email}, privateKey,{algorithm:'RS256',});
     const hash = bcrypt.hashSync(req.body.password, 10);
     user.token = token;
@@ -37,7 +46,7 @@ exports.login = async (req, res) => {
             var token = jwt.sign({ email: req.body.email}, privateKey,{algorithm:'RS256',});
             doc.token = token;
             doc.save()
-            res.json({email:req.body.email,token})
+            res.json({email:req.body.email,token, userId: doc.userId})
         }else{
             console.log('Authentication Failed');
         res.sendStatus(401)

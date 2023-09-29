@@ -12,7 +12,7 @@ async function getOrderStatus(req,res) {
             return res.status(404).json({ error: 'Order not found', order });
         }
 
-        res.status(200).json({ order: order.orderData.cartItems , status: 'order placed successfully'});
+        res.status(200).json({ order: order , status: 'order placed successfully'});
     } catch(error) {
         console.error('Error fetching order status:', error);
         res.status(500).json({ error: 'Internal server error' });
