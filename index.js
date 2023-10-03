@@ -52,6 +52,9 @@ server.use(cors(corsOptions));
 
 
 // verifyToken
+
+server.use('/', orderHistoryRouter)
+
 server.use((req,res,next)=>{
     try{
         console.log('Authorization')
@@ -82,7 +85,6 @@ server.use('/', authOnCoRouter.router);
 server.use('/', verifyOTPRouter.router)
 server.use('/', passwordRouter)
 server.use('/', passResetRouter)
-server.use('/', orderHistoryRouter)
 
 server.listen(8080);
 console.log(('server started'))

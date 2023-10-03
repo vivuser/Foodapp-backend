@@ -13,11 +13,7 @@ exports.createOrder = async(req,res) => {
         console.log({ ...req.body,
             orderNumber,
         } )
-    // const order = new Order({
-    //     orderData: { ...req.body,
-    //         orderNumber,
-    //     } 
-    // });
+  
     let order = await Order.create({
         orderData: { ...req.body,
             orderNumber,

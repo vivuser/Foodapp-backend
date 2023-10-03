@@ -1,9 +1,9 @@
-const  { getOrderList } = require('../controller/orderList')
+const  getOrderController = require('../controller/orderList')
 
 const express = require('express')
 
 const router = express.Router()
 
-router.get('/account', getOrderList )
+router.get('/account', getOrderController.getOrderList )
 
-exports.router = router;
+module.exports = router;
