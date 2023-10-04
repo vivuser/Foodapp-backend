@@ -3,13 +3,15 @@ const Order = require('../model/order');
 
 exports.getOrderList = async function getOrderList(req, res) {
     try {
-        const userId = req.body.userId
+        const userId = req.body?.userId
 
+        console.log(userId)
         const orderList =   await Order.find({ 'orderData.cartInfo.orderData.userId' : userId});
+        console.log(orderList)
 
         res.status(200).json({orderList})
     }
     catch (error){
-        console.error('Error fetching orders history')
+        console.error(error, 'Error fetching orders history')
     }
 }
