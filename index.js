@@ -88,7 +88,7 @@ server.use('/', authOnCoRouter.router);
 server.use('/', verifyOTPRouter.router)
 server.use('/', passwordRouter)
 server.use('/', passResetRouter)
-server.use('/', addressRouter)
+// server.use('/', addressRouter)
 
 server.listen(8080);
 console.log(('server started'))
